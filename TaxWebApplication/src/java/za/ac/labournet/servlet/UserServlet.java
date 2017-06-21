@@ -6,7 +6,6 @@
 package za.ac.labournet.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,69 +17,91 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class UserServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UserServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UserServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    /* comment here*/
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        /* comment here */
+        String selection = request.getParameter("decision");
+
+        double taxrate, taxRebates, taxTresholds, medAidMonthly, medAidAnnually;
+        double payeBeforeTax, taxCredits, PayDue, netCashPay;
+        double monthlyPay, annualPay;
+
+        try {
+            if (selection.equalsIgnoreCase("CALCULATE")) {
+
+                int taxyear = Integer.parseInt(request.getParameter("taxyear"));
+                int age = Integer.parseInt(request.getParameter("age"));
+                double totalEarnings = Double.parseDouble(request.getParameter("totalearnings"));
+                int numberOfmembers = Integer.parseInt(request.getParameter("members"));
+
+                if (taxyear == 2017) {
+
+                    if (totalEarnings <= 188000) {
+
+                        taxrate = totalEarnings * (18 / 100);
+
+                    } else if (totalEarnings <= 293600) {
+
+                        taxrate = totalEarnings * (26 / 100) + 33840;
+
+                    } else if (totalEarnings <= 406400) {
+
+                        taxrate = totalEarnings * (31 / 100) + 61296;
+
+                    } else if (totalEarnings <= 550100) {
+
+                        taxrate = totalEarnings * (36 / 100) + 96264;
+
+                    } else if (totalEarnings <= 701300) {
+
+                        taxrate = totalEarnings * (39 / 100) + 147996;
+                    } else {
+                        taxrate = totalEarnings * (41 / 100) + 206964;
+                    }
+
+                    /*determing the tax rebates which the user fall under*/
+                    if (age < 65) {
+                        taxRebates = 13500;
+                        taxTresholds = 75000;
+                    } else if (age < 75) {
+                        taxRebates = 7407;
+                        taxTresholds = 116150;
+                    } else {
+
+                        taxRebates = 2466;
+                        taxTresholds = 129850;
+                    }
+
+                    /*determining the medical aid dependants per month*/
+                    if (numberOfmembers > 2) {
+                        medAidMonthly = ((286 * 2) + (192 * (numberOfmembers - 2)));
+                    } else {
+                        medAidMonthly = 286 * numberOfmembers;
+                    }
+
+                    /*output */
+                    monthlyPay = totalEarnings / 12;
+                    annualPay = totalEarnings * 12;
+
+                    taxCredits = annualPay - taxrate;
+                    PayDue = totalEarnings - taxCredits;
+                    netCashPay = PayDue - medAidMonthly;
+
+                } else if (taxyear == 2018) {
+
+                }
+
+            } else if (selection.equalsIgnoreCase("RESET")) {
+
+                request.getRequestDispatcher("taxCalculator.html").forward(request, response);
+            }
+
+        } catch (IOException | ServletException e) {
+            response.getWriter().println(e.getMessage());
         }
-    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
