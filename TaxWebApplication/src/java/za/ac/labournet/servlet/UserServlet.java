@@ -24,101 +24,103 @@ public class UserServlet extends HttpServlet {
         /* comment here */
         String selection = request.getParameter("decision");
 
-        double calcTax, taxRebates, taxTreshold, medAidMonthly, medAidAnnually;
-        double payeBeforeTax, taxCredits, PayeDue, netCashPayAnually, netCashPayMonthly;
-        double monthlyPay, annualPay,percentage,calcTax2,calTax3,calcTax4,calcTax7;
-        double amountTobeDeducted;
-        double calctax5 = 0;
-
+        double annualTax, monthlyTax, annualPayAfterTax, monthlyPayAfterTax, taxTreshold, medAidMonthly, medAidAnnually;
+        double annualPayBeforeTax, monthlyPayBeforeTax, netCashPayAnually, netCashPayMonthly;
         try {
             if (selection.equalsIgnoreCase("CALCULATE")) {
 
-                int taxyear = Integer.parseInt(request.getParameter("taxyear"));
+                /* Here we getting the entered values from the Html file*/
+                int taxYear = Integer.parseInt(request.getParameter("taxyear"));
                 int age = Integer.parseInt(request.getParameter("age"));
                 double totalEarnings = Double.parseDouble(request.getParameter("totalearnings"));
                 int numberOfmembers = Integer.parseInt(request.getParameter("members"));
 
-                if (taxyear == 2017) {
+                if (taxYear == 2017) {
 
-                    if (totalEarnings <= 188000) {
+                    /*Calculate PAYE before tax*/
+                    annualPayBeforeTax = totalEarnings;
+                    monthlyPayBeforeTax = totalEarnings / 12;
 
-                        amountTobeDeducted = 0;
-                        calcTax = (totalEarnings - amountTobeDeducted) *(18 / 100);
-                        
-                         
-
-                    } else if (totalEarnings <= 293600) {
-                        
-                        amountTobeDeducted = 188000;
-                        calcTax = (((((totalEarnings - amountTobeDeducted) *0.31) + 61296)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
-                        calcTax = totalEarnings - amountTobeDeducted;
-                        percentage = 26/100;
-                        
-                        calcTax2 = calcTax * percentage;
-                        calTax3 = calcTax2 + 33840;
-                        calcTax4 = calTax3 - (StaticValues.PRIMARY_REBATE_2017 + StaticValues.SECONDARY_REBATE_2017);
-                        calctax5 = calcTax4/12;
-
-                    } else if (totalEarnings <= 406400) {
-                        
-                        amountTobeDeducted = 293600;
-                       
-                        calcTax = (((((totalEarnings - amountTobeDeducted) *0.31) + 61296)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
-                        
-                    
-                    } else if (totalEarnings <= 550100) {
-                        
-                        amountTobeDeducted = 406400;
-            
-                        calcTax = (((((totalEarnings - amountTobeDeducted) *(36 / 100)) + 96264)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
-                        
-
-                    } else if (totalEarnings <= 701300) {
-                        
-                        amountTobeDeducted = 550100;
-                        
-                        calcTax = (((((totalEarnings - amountTobeDeducted) *(39 / 100)) + 147996)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
-                        
-                    } else {
-                            
-                        amountTobeDeducted = 701300;
-                       
-                         calcTax = (((((totalEarnings - amountTobeDeducted) *(41 / 100)) + 206964)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
-                    }
-
-                 
-
-                    /*determining the medical aid dependants per month*/
-                    if (numberOfmembers > 2) {
-                        medAidMonthly = ((286 * 2) + (192 * (numberOfmembers - 2)));
-                    } else {
-                        medAidMonthly = 286 * numberOfmembers;
-                    }
-
-                    /*output */
-                    
-                    
-                    monthlyPay = totalEarnings / 12;
-                    annualPay = totalEarnings;
-                   
-                    
+                    /*Determining annual payable tax*/
                     taxTreshold = StaticValues.TAX_TRESHOLD_2017(age);
+                    if (annualPayBeforeTax < taxTreshold) {
+                        annualTax = 0;
+                        monthlyTax = annualTax / 12;
+                    } else {
+                        annualTax = (StaticValues.determinePayableTax(totalEarnings, age));
+                        monthlyTax = annualTax / 12;
+                    }
+                   
+                    /*Determine PAYE Due - after tax*/
+                    annualPayAfterTax = annualPayBeforeTax - annualTax;
+                    monthlyPayAfterTax = monthlyPayBeforeTax - monthlyTax;
+
+                    /*Determining payable medical aid annually*/
+                    medAidAnnually = StaticValues.determinePayableMedicalAid(numberOfmembers, taxYear);
+                    medAidMonthly = medAidAnnually / 12;
+
+                    /*Net Cash Pay after PAYE Due*/
+                    netCashPayAnually = annualPayAfterTax - medAidAnnually;
+                    netCashPayMonthly = monthlyPayAfterTax - medAidMonthly;
                     
-                    if(annualPay < taxTreshold ){
-                        PayeDue = annualPay;
                     
-                    }else{
-                        PayeDue = annualPay - calctax5;
+                    
+                    request.setAttribute("annualPay", annualPayBeforeTax);
+                    request.setAttribute("monthlyPay", monthlyPayBeforeTax);
+                    
+                    request.setAttribute("annualTax", annualTax);
+                    request.setAttribute("monthlyTax", monthlyTax);
+                    
+                    request.setAttribute("annualPayAfter", annualPayAfterTax);
+                    request.setAttribute("monthlyPayAfter", monthlyPayAfterTax);
+                    
+                    request.setAttribute("netCashMonthly", netCashPayMonthly);
+                    request.setAttribute("netCashAnnually", netCashPayAnually);
+                    
+                    request.getRequestDispatcher("taxReport.jsp").forward(request, response);
+
+                } else if (taxYear == 2018) {
+
+                    /*Calculate PAYE before tax*/
+                    annualPayBeforeTax = totalEarnings;
+                    monthlyPayBeforeTax = totalEarnings / 12;
+
+                    /*Determining annual payable tax*/
+                    taxTreshold = StaticValues.TAX_TRESHOLD_2018(age);
+                    if (annualPayBeforeTax < taxTreshold) {
+                        annualTax = 0;
+                        monthlyTax = annualTax / 12;
+                    } else {
+                        annualTax = (StaticValues.determinePayableTax(totalEarnings, age));
+                        monthlyTax = annualTax / 12;
                     }
                     
-                    netCashPayAnually = PayeDue - (medAidMonthly *12);
-                    
-                    response.getWriter().println(annualPay + " -Anual Pay \n" 
-                                                  +" \n"
-                                                  + " "+
-                                          calcTax + " - tax Credits \n" + PayeDue +" - paydue after Tax \n" + netCashPayAnually +"net cash " );
+                    /*Determine PAYE Due - after tax*/
+                    annualPayAfterTax = annualPayBeforeTax - annualTax;
+                    monthlyPayAfterTax = monthlyPayBeforeTax - monthlyTax;
 
-                } else if (taxyear == 2018) {
+                    /*Determining payable medical aid annually*/
+                    medAidAnnually = StaticValues.determinePayableMedicalAid(numberOfmembers, taxYear);
+                    medAidMonthly = medAidAnnually / 12;
+
+                    /*Net Cash Pay after PAYE Due*/
+                    netCashPayAnually = annualPayAfterTax - medAidAnnually;
+                    netCashPayMonthly = monthlyPayAfterTax - medAidMonthly;
+                    
+                    /*Here we are tranfering these values into the taxReport.jsp file*/
+                    request.setAttribute("annualPay", annualPayBeforeTax);
+                    request.setAttribute("monthlyPay", monthlyPayBeforeTax);
+                    
+                    request.setAttribute("annualTax", annualTax);
+                    request.setAttribute("monthlyTax", monthlyTax);
+                    
+                    request.setAttribute("annualPayAfter", annualPayAfterTax);
+                    request.setAttribute("monthlyPayAfter", monthlyPayAfterTax);
+                    
+                    request.setAttribute("netCashMonthly", netCashPayMonthly);
+                    request.setAttribute("netCashAnnually", netCashPayAnually);
+                    
+                    request.getRequestDispatcher("taxReport.jsp").forward(request, response);
 
                 }
 
