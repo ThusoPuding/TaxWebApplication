@@ -24,9 +24,11 @@ public class UserServlet extends HttpServlet {
         /* comment here */
         String selection = request.getParameter("decision");
 
-        double taxrate, taxRebates, taxTresholds, medAidMonthly, medAidAnnually;
-        double payeBeforeTax, taxCredits, PayDue, netCashPay;
-        double monthlyPay, annualPay;
+        double calcTax, taxRebates, taxTreshold, medAidMonthly, medAidAnnually;
+        double payeBeforeTax, taxCredits, PayeDue, netCashPayAnually, netCashPayMonthly;
+        double monthlyPay, annualPay,percentage,calcTax2,calTax3,calcTax4,calcTax7;
+        double amountTobeDeducted;
+        double calctax5 = 0;
 
         try {
             if (selection.equalsIgnoreCase("CALCULATE")) {
@@ -40,39 +42,51 @@ public class UserServlet extends HttpServlet {
 
                     if (totalEarnings <= 188000) {
 
-                        taxrate = totalEarnings * (18 / 100);
+                        amountTobeDeducted = 0;
+                        calcTax = (totalEarnings - amountTobeDeducted) *(18 / 100);
+                        
+                         
 
                     } else if (totalEarnings <= 293600) {
-
-                        taxrate = totalEarnings * (26 / 100) + 33840;
+                        
+                        amountTobeDeducted = 188000;
+                        calcTax = (((((totalEarnings - amountTobeDeducted) *0.31) + 61296)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
+                        calcTax = totalEarnings - amountTobeDeducted;
+                        percentage = 26/100;
+                        
+                        calcTax2 = calcTax * percentage;
+                        calTax3 = calcTax2 + 33840;
+                        calcTax4 = calTax3 - (StaticValues.PRIMARY_REBATE_2017 + StaticValues.SECONDARY_REBATE_2017);
+                        calctax5 = calcTax4/12;
 
                     } else if (totalEarnings <= 406400) {
-
-                        taxrate = totalEarnings * (31 / 100) + 61296;
-
+                        
+                        amountTobeDeducted = 293600;
+                       
+                        calcTax = (((((totalEarnings - amountTobeDeducted) *0.31) + 61296)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
+                        
+                    
                     } else if (totalEarnings <= 550100) {
-
-                        taxrate = totalEarnings * (36 / 100) + 96264;
+                        
+                        amountTobeDeducted = 406400;
+            
+                        calcTax = (((((totalEarnings - amountTobeDeducted) *(36 / 100)) + 96264)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
+                        
 
                     } else if (totalEarnings <= 701300) {
-
-                        taxrate = totalEarnings * (39 / 100) + 147996;
+                        
+                        amountTobeDeducted = 550100;
+                        
+                        calcTax = (((((totalEarnings - amountTobeDeducted) *(39 / 100)) + 147996)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
+                        
                     } else {
-                        taxrate = totalEarnings * (41 / 100) + 206964;
+                            
+                        amountTobeDeducted = 701300;
+                       
+                         calcTax = (((((totalEarnings - amountTobeDeducted) *(41 / 100)) + 206964)- StaticValues.PRIMARY_REBATE_2017) -StaticValues.SECONDARY_REBATE_2017)/12;
                     }
 
-                    /*determing the tax rebates which the user fall under*/
-                    if (age < 65) {
-                        taxRebates = 13500;
-                        taxTresholds = 75000;
-                    } else if (age < 75) {
-                        taxRebates = 7407;
-                        taxTresholds = 116150;
-                    } else {
-
-                        taxRebates = 2466;
-                        taxTresholds = 129850;
-                    }
+                 
 
                     /*determining the medical aid dependants per month*/
                     if (numberOfmembers > 2) {
@@ -82,12 +96,27 @@ public class UserServlet extends HttpServlet {
                     }
 
                     /*output */
+                    
+                    
                     monthlyPay = totalEarnings / 12;
-                    annualPay = totalEarnings * 12;
-
-                    taxCredits = annualPay - taxrate;
-                    PayDue = totalEarnings - taxCredits;
-                    netCashPay = PayDue - medAidMonthly;
+                    annualPay = totalEarnings;
+                   
+                    
+                    taxTreshold = StaticValues.TAX_TRESHOLD_2017(age);
+                    
+                    if(annualPay < taxTreshold ){
+                        PayeDue = annualPay;
+                    
+                    }else{
+                        PayeDue = annualPay - calctax5;
+                    }
+                    
+                    netCashPayAnually = PayeDue - (medAidMonthly *12);
+                    
+                    response.getWriter().println(annualPay + " -Anual Pay \n" 
+                                                  +" \n"
+                                                  + " "+
+                                          calcTax + " - tax Credits \n" + PayeDue +" - paydue after Tax \n" + netCashPayAnually +"net cash " );
 
                 } else if (taxyear == 2018) {
 
