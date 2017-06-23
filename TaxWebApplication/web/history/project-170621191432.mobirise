@@ -24,8 +24,7 @@
       }
     },
     "publishType": "local",
-    "publishPath": "file:///C:/Users/PUDING/Desktop/Tax%20website",
-    "path": "@PROJECT_PATH@"
+    "publishPath": "file:///C:/Users/PUDING/Desktop/Tax%20website"
   },
   "pages": {
     "index.html": {

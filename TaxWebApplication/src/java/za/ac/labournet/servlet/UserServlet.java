@@ -6,7 +6,6 @@
 package za.ac.labournet.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,69 +17,122 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class UserServlet extends   HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UserServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UserServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    /* comment here*/
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        /* comment here */
+        String selection = request.getParameter("decision");
+
+        double annualTax, monthlyTax, annualPayAfterTax, monthlyPayAfterTax, taxTreshold, medAidMonthly, medAidAnnually;
+        double annualPayBeforeTax, monthlyPayBeforeTax, netCashPayAnually, netCashPayMonthly;
+        try {
+            if (selection.equalsIgnoreCase("CALCULATE")) {
+
+                /* Here we getting the entered values from the Html file*/
+                int taxYear = Integer.parseInt(request.getParameter("taxyear"));
+                int age = Integer.parseInt(request.getParameter("age"));
+                double totalEarnings = Double.parseDouble(request.getParameter("totalearnings"));
+                int numberOfmembers = Integer.parseInt(request.getParameter("members"));
+
+                if (taxYear == 2017) {
+
+                    /*Calculate PAYE before tax*/
+                    annualPayBeforeTax = totalEarnings;
+                    monthlyPayBeforeTax = totalEarnings / 12;
+
+                    /*Determining annual payable tax*/
+                    taxTreshold = StaticValues.TAX_TRESHOLD_2017(age);
+                    if (annualPayBeforeTax < taxTreshold) {
+                        annualTax = 0;
+                        monthlyTax = annualTax / 12;
+                    } else {
+                        annualTax = (StaticValues.determinePayableTax(totalEarnings, age));
+                        monthlyTax = annualTax / 12;
+                    }
+                   
+                    /*Determine PAYE Due - after tax*/
+                    annualPayAfterTax = annualPayBeforeTax - annualTax;
+                    monthlyPayAfterTax = monthlyPayBeforeTax - monthlyTax;
+
+                    /*Determining payable medical aid annually*/
+                    medAidAnnually = StaticValues.determinePayableMedicalAid(numberOfmembers, taxYear);
+                    medAidMonthly = medAidAnnually / 12;
+
+                    /*Net Cash Pay after PAYE Due*/
+                    netCashPayAnually = annualPayAfterTax - medAidAnnually;
+                    netCashPayMonthly = monthlyPayAfterTax - medAidMonthly;
+                    
+                    
+                    
+                    request.setAttribute("annualPay", annualPayBeforeTax);
+                    request.setAttribute("monthlyPay", monthlyPayBeforeTax);
+                    
+                    request.setAttribute("annualTax", annualTax);
+                    request.setAttribute("monthlyTax", monthlyTax);
+                    
+                    request.setAttribute("annualPayAfter", annualPayAfterTax);
+                    request.setAttribute("monthlyPayAfter", monthlyPayAfterTax);
+                    
+                    request.setAttribute("netCashMonthly", netCashPayMonthly);
+                    request.setAttribute("netCashAnnually", netCashPayAnually);
+                    
+                    request.getRequestDispatcher("taxReport.jsp").forward(request, response);
+
+                } else if (taxYear == 2018) {
+
+                    /*Calculate PAYE before tax*/
+                    annualPayBeforeTax = totalEarnings;
+                    monthlyPayBeforeTax = totalEarnings / 12;
+
+                    /*Determining annual payable tax*/
+                    taxTreshold = StaticValues.TAX_TRESHOLD_2018(age);
+                    if (annualPayBeforeTax < taxTreshold) {
+                        annualTax = 0;
+                        monthlyTax = annualTax / 12;
+                    } else {
+                        annualTax = (StaticValues.determinePayableTax(totalEarnings, age));
+                        monthlyTax = annualTax / 12;
+                    }
+                    
+                    /*Determine PAYE Due - after tax*/
+                    annualPayAfterTax = annualPayBeforeTax - annualTax;
+                    monthlyPayAfterTax = monthlyPayBeforeTax - monthlyTax;
+
+                    /*Determining payable medical aid annually*/
+                    medAidAnnually = StaticValues.determinePayableMedicalAid(numberOfmembers, taxYear);
+                    medAidMonthly = medAidAnnually / 12;
+
+                    /*Net Cash Pay after PAYE Due*/
+                    netCashPayAnually = annualPayAfterTax - medAidAnnually;
+                    netCashPayMonthly = monthlyPayAfterTax - medAidMonthly;
+                    
+                    /*Here we are tranfering these values into the taxReport.jsp file*/
+                    request.setAttribute("annualPay", annualPayBeforeTax);
+                    request.setAttribute("monthlyPay", monthlyPayBeforeTax);
+                    
+                    request.setAttribute("annualTax", annualTax);
+                    request.setAttribute("monthlyTax", monthlyTax);
+                    
+                    request.setAttribute("annualPayAfter", annualPayAfterTax);
+                    request.setAttribute("monthlyPayAfter", monthlyPayAfterTax);
+                    
+                    request.setAttribute("netCashMonthly", netCashPayMonthly);
+                    request.setAttribute("netCashAnnually", netCashPayAnually);
+                    
+                    request.getRequestDispatcher("taxReport.jsp").forward(request, response);
+
+                }
+
+            } else if (selection.equalsIgnoreCase("RESET")) {
+
+                request.getRequestDispatcher("taxCalculator.html").forward(request, response);
+            }
+
+        } catch (IOException | ServletException e) {
+            response.getWriter().println(e.getMessage());
         }
-    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

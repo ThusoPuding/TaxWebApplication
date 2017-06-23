@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
- 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v3.8.4, mobirise.com">
@@ -26,7 +25,7 @@
   
 </head>
 <body>
-<section id="menu-3">
+<section id="menu-1">
 
     <nav class="navbar navbar-dropdown bg-color navbar-fixed-top">
        
@@ -47,7 +46,7 @@
                         <div class="hamburger-icon"></div>
                     </button>
 
-                    <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar"><li class="nav-item"><a class="nav-link link" href="index.html">HOME</a></li><li class="nav-item"><a class="nav-link link" href="taxCalculator.html">CALCULATE TAX</a></li><li class="nav-item"><a class="nav-link link" href="#">TAX RATES</a></li></ul>
+                    <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar"><li class="nav-item"><a class="nav-link link" href="index.html">HOME</a></li><li class="nav-item"><a class="nav-link link" href="taxCalculator.html">CALCULATE TAX</a></li><li class="nav-item"><a class="nav-link link" href="TaxRates.html">TAX RATES</a></li></ul>
                     <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
                         <div class="close-icon"></div>
                     </button>
@@ -60,71 +59,72 @@
 
 </section>
 
-<section class="engine"><a rel="external" href="https://mobirise.com">mobile web generator</a></section><section class="mbr-section mbr-parallax-background mbr-after-navbar" id="form1-2" style="background-image: url(assets/images/jumbotron.jpg); padding-top: 120px; padding-bottom: 120px;">
+<section class="engine"><a rel="external" href="https://mobirise.com">easy wysiwyg web page builder</a></section><section class="mbr-section mbr-parallax-background mbr-after-navbar" id="msg-box3-a" style="background-image: url(assets/images/tax-468440-1920-2000x1333-30.jpg); padding-top: 120px; padding-bottom: 120px;">
+
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(34, 34, 34);">
     </div>
-    <div class="mbr-section mbr-section__container mbr-section__container--middle">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-xs-center">
-                    <h3 class="mbr-section-title display-2">CONTACT FORM</h3>
-                    <small class="mbr-section-subtitle">Shape your future web project with sharp design and refine coded functions.</small>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-xs-center">
+                <h3 style="color:#fff" class="mbr-section-title text-xs-center display-2">TAX REPORT</h3>
+                <div class="lead">
+				 <table  style="color:#fff; padding-left:30px" width="500" height="50" align="center">
+                    <tr>
+                        <th scope="col">    </th>
+                        <th scope="col">MONTHLY</th>
+                        <th scope="col">ANNUALLY</th>
+                    </tr>
+		   <%
+                        double annualPay =(Double)request.getAttribute("annualPay");
+                        double monthlypay = (Double)request.getAttribute("monthlyPay");
+                        
+                        double annualTax =(Double)request.getAttribute("annualTax");
+                        double monthlyTax = (Double)request.getAttribute("monthlyTax");
+                        
+                        double annualPayAfter =(Double)request.getAttribute("annualPayAfter");
+                        double monthlyPayAfter = (Double)request.getAttribute("monthlyPayAfter");
+                        
+                        double netCashMonthly =(Double)request.getAttribute("netCashMonthly");
+                        double netCashAnnually = (Double)request.getAttribute("netCashAnnually");
+
+                    %>
+                    <tr>
+                        <th scope="col"> PAYE BEFORE TAX </th>
+                        <th  style= "padding-left:12px"scope="col"><%=monthlypay%></th>
+                        <th style= "padding-left:12px" scope="col"><%=annualPay%></th>
+                    </tr>
+					<tr>
+                        <th scope="col"> PAYABLE TAX</th>
+                        <th  style= "padding-left:12px"scope="col"><%=monthlyTax%></th>
+                        <th style= "padding-left:12px" scope="col"><%=annualTax%></th>
+                    </tr>
+					<tr>
+                        <th scope="col"> PAYE AFTER TAX </th>
+                        <th  style= "padding-left:12px"scope="col"><%=monthlyPayAfter%></th>
+                        <th style= "padding-left:12px" scope="col"><%=annualPayAfter%></th>
+                    </tr>
+					<tr>
+                        <th scope="col"> NET INCOME </th>
+                        <th  style= "padding-left:12px"scope="col"> <%=netCashMonthly%></th>
+                        <th style= "padding-left:12px" scope="col"><%=netCashAnnually%></th>
+                    </tr>
+		    <%
+                        
+                    %>
+                </table>
+				</div>
             </div>
         </div>
     </div>
-    <div class="mbr-section mbr-section-nopadding">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-lg-10 col-lg-offset-1" data-form-type="formoid">
-
-
-                    <div data-form-alert="true">
-                        <div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center">Thanks for filling out form!</div>
-                    </div>
-
-
-                    <form action="https://mobirise.com/" method="post" data-form-title="CONTACT FORM">
-
-                        <input type="hidden" value="cEy5JpaMxgxo4q9AnzhTeECviUQSdfMQJ0We7HO5cJ2CdunSQ2upWYrV+v9MAJZ8spiPDWioXCpw7N63ZSbxTBtvQOnlAasSgUK7JwBAvDmTL0n9uPLPkPDDbr3uRAeM" data-form-email="true">
-
-                        <div class="row row-sm-offset">
-
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="form1-2-name">Name<span class="form-asterisk">*</span></label>
-                                    <input type="text" class="form-control" name="name" required="" data-form-field="Name" id="form1-2-name">
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="form1-2-email">Email<span class="form-asterisk">*</span></label>
-                                    <input type="email" class="form-control" name="email" required="" data-form-field="Email" id="form1-2-email">
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="form1-2-phone">Phone</label>
-                                    <input type="tel" class="form-control" name="phone" data-form-field="Phone" id="form1-2-phone">
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-control-label" for="form1-2-message">Message</label>
-                            <textarea class="form-control" name="message" rows="7" data-form-field="Message" id="form1-2-message"></textarea>
-                        </div>
-
-                        <div><button type="submit" class="btn btn-primary">CONTACT US</button></div>
-
-                    </form>
-                </div>
+	<div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-xs-center">
+                <h3 class="mbr-section-title display-2"></h3>
+                <div><a class="btn btn-secondary" href="taxCalculator.html">CALCULATE AGAIN</a> <a class="btn btn-secondary" href="TaxRates.html">TAX TABLES</a></div>
             </div>
         </div>
     </div>
+
 </section>
 
 <section class="mbr-section mbr-section-md-padding mbr-footer footer1" id="contacts1-c" style="background-color: rgb(41, 105, 176); padding-top: 90px; padding-bottom: 90px;">
@@ -174,7 +174,6 @@ Fax: +27 (0) 11 465 6102 </p>
   <script src="assets/touchSwipe/jquery.touchSwipe.min.js"></script>
   <script src="assets/jarallax/jarallax.js"></script>
   <script src="assets/theme/js/script.js"></script>
-  <script src="assets/formoid/formoid.min.js"></script>
   
   
   <input name="animation" type="hidden">

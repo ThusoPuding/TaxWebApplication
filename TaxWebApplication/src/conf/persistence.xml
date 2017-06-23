@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/taxdbase2017"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="ThusoPuding"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

@@ -67,8 +67,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-xs-center">
-                    <h3 class="mbr-section-title display-1">CALCULATE IN EASY STEPS</h3>
-                    <small class="mbr-section-subtitle">Please enter the following required information to make your life easier.</small>
+                    <h3 style="color:#fff" class="mbr-section-title display-1">CALCULATE IN EASY STEPS</h3>
+                    <small style="color:#fff" class="mbr-section-subtitle">Please enter the following required information to make your life easier.</small>
                 </div>
             </div>
         </div>
@@ -76,74 +76,60 @@
     <div class="mbr-section mbr-section-nopadding">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-lg-10 col-lg-offset-1" data-form-type="formoid">
+              
+                    <form method="post"  action="user.do"  >
+						<div >
+								
 
-
-                    <div data-form-alert="true">
-                        <div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center">Thanks for filling out form!</div>
-                    </div>
-
-
-                    <form action="https://mobirise.com/" method="post" data-form-title="CONTACT FORM">
-						<div style="center">
-								<input type="hidden" value="ngVsgrSxiO4LcJgoO/JtXi11WeD9/okUQmyI6JL/eeqY9svBuzr7qKf+50BS6IiN+rrsqOQzh/y6W3esvqKRGOTqQ5SQRJk4cytfrHfMTGL1IPU9VWXYg3+mx14yDi3T" data-form-email="true">
-
-								<div class="row row-sm-offset">
+								<div style="padding-left:270px;" class="row row-sm-offset">
 								
 
 									<div class="col-xs-12 col-md-4">
 										<div class="form-group">
-											<label class="form-control-label" for="form1-8-name">Tax Year<span class="form-asterisk">*</span></label>
-											<input type="text" class="form-control" name="name" required="" data-form-field="Name" id="form1-8-name">
+											<label style="color:#fff" class="form-control-label" for="form1-8-age">Tax Year<span class="form-asterisk">*</span></label>
+											<input type="number" class="form-control" name="taxyear" required="" data-form-field="Tax year" id="form1-8-taxyear">
 										</div>
 									</div>
 
 									<div class="col-xs-12 col-md-4">
 										<div class="form-group">
-											<label class="form-control-label" for="form1-8-email">Age<span class="form-asterisk">*</span></label>
-											<input type="email" class="form-control" name="email" required="" data-form-field="Email" id="form1-8-email">
-										</div>
-									</div>
-
-								   
-								</div>
-								 <div class="row row-sm-offset">
-
-									<div class="col-xs-12 col-md-4">
-										<div class="form-group">
-											<label class="form-control-label" for="form1-8-phone">Total Earnings</label>
-											<input type="tel" class="form-control" name="phone" data-form-field="Phone" id="form1-8-phone">
-										</div>
-									</div>
-
-									<div class="col-xs-12 col-md-4">
-										<div class="form-group">
-											<label class="form-control-label" for="form1-8-phone">No. of Medical Aid Members(Including Main)</label>
-											<input type="tel" class="form-control" name="phone" data-form-field="Phone" id="form1-8-phone">
+											<label style="color:#fff" class="form-control-label" for="form1-8-email">Age<span class="form-asterisk">*</span></label>
+											<input type="number" class="form-control" name="age" required="" data-form-field="Age" id="form1-8-Age">
 										</div>
 									</div>
 
 								   
 								</div>
 								
-								<div class="row row-sm-offset">
+								 <div style="padding-left:270px;" class="row row-sm-offset">
 
-									
-								
-								<div class="col-xs-12 col-md-4">
-										<div><button type="submit" class="btn btn-primary">CALCULATE</button></div>
+									<div class="col-xs-12 col-md-4">
+										<div class="form-group">
+											<label style="color:#fff" class="form-control-label" for="form1-8-age">Total Earnings<span class="form-asterisk">*</span></label>
+											<input type="number" class="form-control" name="totalearnings" data-form-field="earnings" id="form1-8-earnings">
+										</div>
 									</div>
 
 									<div class="col-xs-12 col-md-4">
-										<div><button type="submit" class="btn btn-primary">RESET</button></div>
+										<div class="form-group">
+											<label style="color:#fff" class="form-control-label" for="form1-8-phone">No. of Medical Aid Members( + Main)<span class="form-asterisk">*</span></label>
+											<input type="number" class="form-control" name="members" data-form-field="Phone" id="form1-8-phone">
+										</div>
 									</div>
+
 								   
+								</div>
+								
+								<div style="padding-left:390px;" class="row row-sm-offset">
+
+											
+												<div ><button type="submit" name="decision" value="Calculate"class="btn btn-primary">CALCULATE</button><button type="submit" name="decision" value="reset" class="btn btn-primary">RESET</button></div>
+							
 								</div>
 
                         </div>
 
                     </form>
-                </div>
             </div>
         </div>
     </div>
@@ -160,7 +146,6 @@
                 <p><strong>Address</strong><br>
 8 Santorini<br>
 374 Justice Mohammed Street<br>
-Sunnyside<br>
 Pretoria, 0002</p>
             </div>
             <div class="mbr-footer-content col-xs-12 col-md-3">
