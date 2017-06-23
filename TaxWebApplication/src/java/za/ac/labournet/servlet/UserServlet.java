@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author PUDING
+ * 
+ * 
+ * 
+ * This servlet class is used to send and receive values from the servers and HTML files,
+   this class is the connection between the JSP files and the server.
  */
 public class UserServlet extends   HttpServlet {
 
@@ -68,7 +73,7 @@ public class UserServlet extends   HttpServlet {
                     netCashPayMonthly = monthlyPayAfterTax - medAidMonthly;
                     
                     
-                    
+                    /*Here we are sending these values to the taxReport.jsp file*/
                     request.setAttribute("annualPay", annualPayBeforeTax);
                     request.setAttribute("monthlyPay", monthlyPayBeforeTax);
                     
@@ -81,6 +86,7 @@ public class UserServlet extends   HttpServlet {
                     request.setAttribute("netCashMonthly", netCashPayMonthly);
                     request.setAttribute("netCashAnnually", netCashPayAnually);
                     
+                    /*This open up the taxReport.jsp file to display the calculated values*/
                     request.getRequestDispatcher("taxReport.jsp").forward(request, response);
 
                 } else if (taxYear == 2018) {
@@ -124,6 +130,8 @@ public class UserServlet extends   HttpServlet {
                     request.setAttribute("netCashMonthly", netCashPayMonthly);
                     request.setAttribute("netCashAnnually", netCashPayAnually);
                     
+                    
+                    /*This open up the taxReport.jsp file to display the calculated values*/
                     request.getRequestDispatcher("taxReport.jsp").forward(request, response);
 
                 }
