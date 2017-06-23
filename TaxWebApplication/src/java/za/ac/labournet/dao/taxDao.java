@@ -24,6 +24,8 @@ public class taxDao {
         connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/telkomdbase", "ThusoPuding", "thusop2121");
         statement = (Statement) connection.createStatement();
 
+        
+        
     }
     
     
