@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author PUDING
+ * 
+ * 
+ * 
+ * This servlet class is used to send and receive values from the servers and HTML files,
+   this class is the connection between the JSP files and the server.
  */
 public class UserServlet extends HttpServlet {
 
