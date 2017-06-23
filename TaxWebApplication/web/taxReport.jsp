@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,27 +87,30 @@
                         
                         double netCashMonthly =(Double)request.getAttribute("netCashMonthly");
                         double netCashAnnually = (Double)request.getAttribute("netCashAnnually");
-
+                        
+                        DecimalFormat df = new DecimalFormat("#.##");
+                        
+                        
                     %>
                     <tr>
                         <th scope="col"> PAYE BEFORE TAX </th>
-                        <th  style= "padding-left:12px"scope="col"><%=monthlypay%></th>
-                        <th style= "padding-left:12px" scope="col"><%=annualPay%></th>
+                        <th  style= "padding-left:12px"scope="col"><%=df.format(monthlypay)%></th>
+                        <th style= "padding-left:12px" scope="col"><%= df.format(annualPay)%></th>
                     </tr>
 					<tr>
                         <th scope="col"> PAYABLE TAX</th>
-                        <th  style= "padding-left:12px"scope="col"><%=monthlyTax%></th>
-                        <th style= "padding-left:12px" scope="col"><%=annualTax%></th>
+                        <th  style= "padding-left:12px"scope="col"><%=df.format(monthlyTax)%></th>
+                        <th style= "padding-left:12px" scope="col"><%=df.format(annualTax)%></th>
                     </tr>
 					<tr>
                         <th scope="col"> PAYE AFTER TAX </th>
-                        <th  style= "padding-left:12px"scope="col"><%=monthlyPayAfter%></th>
-                        <th style= "padding-left:12px" scope="col"><%=annualPayAfter%></th>
+                        <th  style= "padding-left:12px"scope="col"><%=df.format(monthlyPayAfter)%></th>
+                        <th style= "padding-left:12px" scope="col"><%=df.format(annualPayAfter)%></th>
                     </tr>
 					<tr>
                         <th scope="col"> NET INCOME </th>
-                        <th  style= "padding-left:12px"scope="col"> <%=netCashMonthly%></th>
-                        <th style= "padding-left:12px" scope="col"><%=netCashAnnually%></th>
+                        <th  style= "padding-left:12px"scope="col"> <%=df.format(netCashMonthly)%></th>
+                        <th style= "padding-left:12px" scope="col"><%=df.format(netCashAnnually)%></th>
                     </tr>
 		    <%
                         

@@ -6,6 +6,7 @@
 package za.ac.labournet.servlet;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,9 @@ public class UserServlet extends HttpServlet {
 
         double annualTax, monthlyTax, annualPayAfterTax, monthlyPayAfterTax, taxTreshold, medAidMonthly, medAidAnnually;
         double annualPayBeforeTax, monthlyPayBeforeTax, netCashPayAnually, netCashPayMonthly;
+        
+        DecimalFormat df = new DecimalFormat("#.##");
+        
         try {
             if (selection.equalsIgnoreCase("CALCULATE")) {
 
@@ -96,7 +100,7 @@ public class UserServlet extends HttpServlet {
                     }
                     
                     /*Determine PAYE Due - after tax*/
-                    annualPayAfterTax = annualPayBeforeTax - annualTax;
+                    annualPayAfterTax =  annualPayBeforeTax - annualTax;
                     monthlyPayAfterTax = monthlyPayBeforeTax - monthlyTax;
 
                     /*Determining payable medical aid annually*/
