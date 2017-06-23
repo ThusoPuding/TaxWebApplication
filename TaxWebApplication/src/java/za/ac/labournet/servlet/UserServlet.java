@@ -68,7 +68,7 @@ public class UserServlet extends HttpServlet {
                     netCashPayMonthly = monthlyPayAfterTax - medAidMonthly;
                     
                     
-                    
+                    /*Here we are sending these values to the taxReport.jsp file*/
                     request.setAttribute("annualPay", annualPayBeforeTax);
                     request.setAttribute("monthlyPay", monthlyPayBeforeTax);
                     
@@ -81,6 +81,7 @@ public class UserServlet extends HttpServlet {
                     request.setAttribute("netCashMonthly", netCashPayMonthly);
                     request.setAttribute("netCashAnnually", netCashPayAnually);
                     
+                    /*This open up the taxReport.jsp file to display the calculated values*/
                     request.getRequestDispatcher("taxReport.jsp").forward(request, response);
 
                 } else if (taxYear == 2018) {
@@ -124,6 +125,8 @@ public class UserServlet extends HttpServlet {
                     request.setAttribute("netCashMonthly", netCashPayMonthly);
                     request.setAttribute("netCashAnnually", netCashPayAnually);
                     
+                    
+                    /*This open up the taxReport.jsp file to display the calculated values*/
                     request.getRequestDispatcher("taxReport.jsp").forward(request, response);
 
                 }
