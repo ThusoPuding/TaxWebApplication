@@ -5,12 +5,13 @@
  */
 package za.ac.labournet.servlet;
 
+import za.ac.labournet.staticvalues.StaticValues;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  *
@@ -23,19 +24,20 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class UserServlet extends   HttpServlet {
 
-    /* comment here*/
+    /* This Method Serves as the connection between the the interfaces and the server */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        /* comment here */
+        /*Here we getting the button value using the button name in the HTML files */
         String selection = request.getParameter("decision");
+        
 
         double annualTax, monthlyTax, annualPayAfterTax, monthlyPayAfterTax, taxTreshold, medAidMonthly, medAidAnnually;
         double annualPayBeforeTax, monthlyPayBeforeTax, netCashPayAnually, netCashPayMonthly;
         
         DecimalFormat df = new DecimalFormat("#.##");
-        
         try {
+              
             if (selection.equalsIgnoreCase("CALCULATE")) {
 
                 /* Here we getting the entered values from the Html file*/
@@ -56,7 +58,7 @@ public class UserServlet extends   HttpServlet {
                         annualTax = 0;
                         monthlyTax = annualTax / 12;
                     } else {
-                        annualTax = (StaticValues.determinePayableTax(totalEarnings, age));
+                        annualTax = (StaticValues.determinePayableTax2017(totalEarnings, age));
                         monthlyTax = annualTax / 12;
                     }
                    
@@ -101,7 +103,7 @@ public class UserServlet extends   HttpServlet {
                         annualTax = 0;
                         monthlyTax = annualTax / 12;
                     } else {
-                        annualTax = (StaticValues.determinePayableTax(totalEarnings, age));
+                        annualTax = (StaticValues.determinePayableTax2018(totalEarnings, age));
                         monthlyTax = annualTax / 12;
                     }
                     
@@ -139,10 +141,12 @@ public class UserServlet extends   HttpServlet {
             } else if (selection.equalsIgnoreCase("RESET")) {
 
                 request.getRequestDispatcher("taxCalculator.html").forward(request, response);
+                
             }
 
-        } catch (IOException | ServletException e) {
+        } catch (Exception e) {
             response.getWriter().println(e.getMessage());
+            
         }
 
     }
