@@ -42,6 +42,7 @@ public class UserServlet extends   HttpServlet {
 
                 /* Here we getting the entered values from the Html file*/
                 int taxYear = Integer.parseInt(request.getParameter("taxyear"));
+                String period = request.getParameter("salary");
                 int age = Integer.parseInt(request.getParameter("age"));
                 double totalEarnings = Double.parseDouble(request.getParameter("totalearnings"));
                 int numberOfmembers = Integer.parseInt(request.getParameter("members"));
@@ -49,8 +50,15 @@ public class UserServlet extends   HttpServlet {
                 if (taxYear == 2017) {
 
                     /*Calculate PAYE before tax*/
-                    annualPayBeforeTax = totalEarnings;
-                    monthlyPayBeforeTax = totalEarnings / 12;
+                    if(("Monthly").equals(period)){
+                        annualPayBeforeTax = totalEarnings * 12;
+                        monthlyPayBeforeTax = totalEarnings;
+                    }else{
+                        annualPayBeforeTax = totalEarnings;
+                        monthlyPayBeforeTax = totalEarnings/12;
+                    }
+                    
+                    
 
                     /*Determining annual payable tax*/
                     taxTreshold = StaticValues.TAX_TRESHOLD_2017(age);
@@ -58,7 +66,7 @@ public class UserServlet extends   HttpServlet {
                         annualTax = 0;
                         monthlyTax = annualTax / 12;
                     } else {
-                        annualTax = (StaticValues.determinePayableTax2017(totalEarnings, age));
+                        annualTax = (StaticValues.determinePayableTax2017(annualPayBeforeTax, age));
                         monthlyTax = annualTax / 12;
                     }
                    
@@ -94,16 +102,21 @@ public class UserServlet extends   HttpServlet {
                 } else if (taxYear == 2018) {
 
                     /*Calculate PAYE before tax*/
-                    annualPayBeforeTax = totalEarnings;
-                    monthlyPayBeforeTax = totalEarnings / 12;
-
+                 if(("Monthly").equals(period)){
+                        annualPayBeforeTax = totalEarnings * 12;
+                        monthlyPayBeforeTax = totalEarnings;
+                    }else{
+                        annualPayBeforeTax = totalEarnings;
+                        monthlyPayBeforeTax = totalEarnings/12;
+                    }
+                 
                     /*Determining annual payable tax*/
                     taxTreshold = StaticValues.TAX_TRESHOLD_2018(age);
                     if (annualPayBeforeTax < taxTreshold) {
                         annualTax = 0;
                         monthlyTax = annualTax / 12;
                     } else {
-                        annualTax = (StaticValues.determinePayableTax2018(totalEarnings, age));
+                        annualTax = (StaticValues.determinePayableTax2018(annualPayBeforeTax, age));
                         monthlyTax = annualTax / 12;
                     }
                     
