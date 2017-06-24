@@ -67,7 +67,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-xs-center">
-                <h3 style="color:#fff" class="mbr-section-title text-xs-center display-2">TAX REPORT</h3>
+                <h3 style="color:#fff" class="mbr-section-title text-xs-center display-2">INCOME REPORT</h3>
                 <div class="lead">
 				 <table  style="color:#fff; padding-left:30px" width="500" height="50" align="center">
                     <tr>
