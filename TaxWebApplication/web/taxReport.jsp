@@ -47,7 +47,7 @@
                         <div class="hamburger-icon"></div>
                     </button>
 
-                    <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar"><li class="nav-item"><a class="nav-link link" href="index.html">HOME</a></li><li class="nav-item"><a class="nav-link link" href="taxCalculator.html">CALCULATE TAX</a></li><li class="nav-item"><a class="nav-link link" href="TaxRates.html">TAX RATES</a></li></ul>
+                    <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar"><li class="nav-item"><a class="nav-link link" href="index.html">HOME</a></li><li class="nav-item"><a class="nav-link link" href="taxCalculator.html">CALCULATE TAX</a></li></ul>
                     <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
                         <div class="close-icon"></div>
                     </button>
@@ -67,7 +67,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-xs-center">
-                <h3 style="color:#fff" class="mbr-section-title text-xs-center display-2"><u>TAX REPORT</h3>
+                <h3 style="color:#fff" class="mbr-section-title text-xs-center display-2">TAX REPORT</h3>
                 <div class="lead">
 				 <table  style="color:#fff; padding-left:30px" width="500" height="50" align="center">
                     <tr>
@@ -76,7 +76,9 @@
                         <th scope="col">ANNUALLY</th>
                     </tr>
 		   <%
-                        double annualPay =(Double)request.getAttribute("annualPay");
+                         /*here we are recieving the sent values from the servlet */
+						 
+					   double annualPay =(Double)request.getAttribute("annualPay");
                         double monthlypay = (Double)request.getAttribute("monthlyPay");
                         
                         double annualTax =(Double)request.getAttribute("annualTax");
@@ -88,29 +90,30 @@
                         double netCashMonthly =(Double)request.getAttribute("netCashMonthly");
                         double netCashAnnually = (Double)request.getAttribute("netCashAnnually");
                         
+						/*This is the  decimal format for the values to be displayed*/
                         DecimalFormat df = new DecimalFormat("#.##");
                         
                         
                     %>
                     <tr>
                         <th scope="col"> PAYE BEFORE TAX </th>
-                        <th  style= "padding-left:12px"scope="col"><%=df.format(monthlypay)%></th>
-                        <th style= "padding-left:12px" scope="col"><%= df.format(annualPay)%></th>
+                        <th  style= "padding-left:12px"scope="col">R <%=df.format(monthlypay)%></th>
+                        <th style= "padding-left:12px" scope="col">R <%= df.format(annualPay)%></th>
                     </tr>
 					<tr>
                         <th scope="col"> PAYABLE TAX</th>
-                        <th  style= "padding-left:12px"scope="col"><%=df.format(monthlyTax)%></th>
-                        <th style= "padding-left:12px" scope="col"><%=df.format(annualTax)%></th>
+                        <th  style= "padding-left:12px"scope="col">R <%=df.format(monthlyTax)%></th>
+                        <th style= "padding-left:12px" scope="col">R <%=df.format(annualTax)%></th>
                     </tr>
 					<tr>
                         <th scope="col"> PAYE AFTER TAX </th>
-                        <th  style= "padding-left:12px"scope="col"><%=df.format(monthlyPayAfter)%></th>
-                        <th style= "padding-left:12px" scope="col"><%=df.format(annualPayAfter)%></th>
+                        <th  style= "padding-left:12px"scope="col">R <%=df.format(monthlyPayAfter)%></th>
+                        <th style= "padding-left:12px" scope="col">R <%=df.format(annualPayAfter)%></th>
                     </tr>
 					<tr>
                         <th scope="col"> NET INCOME </th>
-                        <th  style= "padding-left:12px"scope="col"> <%=df.format(netCashMonthly)%></th>
-                        <th style= "padding-left:12px" scope="col"><%=df.format(netCashAnnually)%></th>
+                        <th  style= "padding-left:12px"scope="col">R <%=df.format(netCashMonthly)%></th>
+                        <th style= "padding-left:12px" scope="col">R <%=df.format(netCashAnnually)%></th>
                     </tr>
 		    <%
                         
@@ -124,7 +127,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-xs-center">
                 <h3 class="mbr-section-title display-2"></h3>
-                <div><a class="btn btn-secondary" href="taxCalculator.html">CALCULATE AGAIN</a> <a class="btn btn-secondary" href="TaxRates.html">TAX TABLES</a></div>
+                <div style= "padding-right:85px" ><a class="btn btn-secondary" href="taxCalculator.html">CALCULATE AGAIN</a></div>
             </div>
         </div>
     </div>
@@ -138,7 +141,7 @@
             <div class="mbr-footer-content col-xs-12 col-md-3">
                 
             </div>
-            <div class="mbr-footer-content col-xs-12 col-md-3">
+            <div class=" mbr-footer-content col-xs-12 col-md-3">
                 <p><strong>Address</strong><br>
 8 Santorini<br>
 374 Justice Mohammed Street<br>
