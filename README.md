@@ -5,13 +5,13 @@ calculate tax to be paid by the employee, Calculate the emplyees's medical aid e
 This calculator caters only for the year 2017 and 2018 but built in such way that it would be easier to make modifications to make it cater for future use.
 
 
-#Project architecture
+# Project architecture
 ==========================
 The backend of this project is based mainly on java and the front end is based on HTML, CSS, and java Script.
-in the backend there are java codes(Servlets and others classes) to collect information from the clients side(the Interfaces) and make the required calculations and send them back to the the client.
+In the backend, there are java files(Servlets and others classes) which collect information from the client's side(the Interfaces) and make the required calculations and send them back to the the client.
 
 
-#Required resources
+# Required resources
 =======================
 You require the following to build and deploy the tax calculator:
 
