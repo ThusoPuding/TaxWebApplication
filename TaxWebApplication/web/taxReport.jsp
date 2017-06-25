@@ -37,7 +37,7 @@
 
                     <div class="navbar-brand">
                         
-                        <a class="navbar-caption" href="#">TAX CALCULATOR</a>
+                        <a class="navbar-caption" href="index.html">TAX CALCULATOR</a>
                     </div>
 
                 </div>
@@ -47,7 +47,7 @@
                         <div class="hamburger-icon"></div>
                     </button>
 
-                    <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar"><li class="nav-item"><a class="nav-link link" href="index.html">HOME</a></li><li class="nav-item"><a class="nav-link link" href="taxCalculator.html">CALCULATE TAX</a></li></ul>
+                    <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar"><li class="nav-item"><a class="nav-link link" href="index.html" >HOME</a></li><li class="nav-item"><a class="nav-link link" href="taxCalculator.html">CALCULATE TAX</a></li></ul>
                     <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
                         <div class="close-icon"></div>
                     </button>
@@ -60,7 +60,7 @@
 
 </section>
 
-<section class="engine"><a rel="external" href="https://mobirise.com">easy wysiwyg web page builder</a></section><section class="mbr-section mbr-parallax-background mbr-after-navbar" id="msg-box3-a" style="background-image: url(assets/images/tax-468440-1920-2000x1333-30.jpg); padding-top: 120px; padding-bottom: 120px;">
+<section class="engine"><a rel="external" href="">....</a></section><section class="mbr-section mbr-parallax-background mbr-after-navbar" id="msg-box3-a" style="background-image: url(assets/images/tax-468440-1920-2000x1333-30.jpg); padding-top: 120px; padding-bottom: 120px;">
 
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(34, 34, 34);">
     </div>
@@ -72,8 +72,8 @@
 				 <table  style="color:#fff; padding-left:30px" width="500" height="50" align="center">
                     <tr>
                         <th scope="col">    </th>
-                        <th scope="col">MONTHLY</th>
-                        <th scope="col">ANNUALLY</th>
+                        <th scope="col"><u>MONTHLY</u></th>
+                        <th scope="col"><u>ANNUALLY</u></th>
                     </tr>
 		   <%
                          /*here we are recieving the sent values from the servlet */
@@ -97,7 +97,7 @@
                     %>
                     <tr>
                         <th scope="col"> PAYE BEFORE TAX </th>
-                        <th  style= "padding-left:12px"scope="col">R <%=df.format(monthlypay)%></th>
+                        <th  pattern="(\d{3})([\.])(\d{2})" style= "padding-left:12px"scope="col" >R <%=df.format(monthlypay)%></th>
                         <th style= "padding-left:12px" scope="col">R <%= df.format(annualPay)%></th>
                     </tr>
 					<tr>
@@ -127,7 +127,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-xs-center">
                 <h3 class="mbr-section-title display-2"></h3>
-                <div style= "padding-right:85px" ><a class="btn btn-secondary" href="taxCalculator.html">CALCULATE AGAIN</a></div>
+                <div style= "padding-right:85px " ><a class="btn btn-secondary" style="background-color:#0099cc;" href="taxCalculator.html">CALCULATE AGAIN</a></div>
             </div>
         </div>
     </div>
